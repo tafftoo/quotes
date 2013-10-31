@@ -1,0 +1,16 @@
+{
+    "name": "Quotes-Server",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "dependencies": {
+        "restify": "latest",
+        "sqlite3": "latest",
+        "querystring":"latest"
+    },
+    "devDependencies": {
+        "nodemon": "*"
+    }
+}
