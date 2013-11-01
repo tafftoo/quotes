@@ -13,16 +13,16 @@ parser.add_argument('quote', nargs='?')
 args = parser.parse_args()
 
 if args.random:
-	json = json.load(urllib2.urlopen('http://localhost:8080/random'))
+	json = json.load(urllib2.urlopen('http://192.168.88.86:8069/random'))
 	print "%s: \"%s\"" % (json['person'], json['quote'])
 
 elif args.list:
-	json = json.load(urllib2.urlopen('http://localhost:8080/quotes/%s' % args.list))
+	json = json.load(urllib2.urlopen('http://192.168.88.86:8069/quotes/%s' % args.list))
 	for q in json:
 		print "%s: \"%s\"" % (q['person'], q['quote'])
 
 else:
-	url = 'http://localhost:8080/quotes/%s' % args.username
+	url = 'http://192.168.88.86:8069/quotes/%s' % args.username
 	values = {
 		'quote':args.quote
 	}
