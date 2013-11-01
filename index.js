@@ -31,6 +31,8 @@ function newQuote(req, res, next) {
 
 		req.on('end', function() {
 
+			var postData = querystring.parse(body);
+
 			console.dir(postData);
 
 			db.run("INSERT INTO quotes (person, quote) VALUES(?, ?)", req.params.name, postData.quote, function(err, rowId) {
