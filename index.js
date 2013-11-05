@@ -54,14 +54,38 @@ function getRandom(req, res, next) {
 	});
 }
 
+function getFeed(req, res, next) {
+	db.all("SELECT rowid AS id, person, quote FROM quotes", function(err, quotes) {
+		var output = '<rss version="2.0">' +
+					 '<channel>' +
+					 '<title>PHPGenie Quotes</title>' +
+					 '<link>http://www.phpgenie.co.uk/</link>' +
+					 '<description>Funny/Outrageous Quotes heard around the office</description>' +
+					 '<language>en-us</language>';
+
+		quotes.forEach(function(quote) {
+			output += '<item>' +
+					  '<title>' + quote.person + '</title>' +
+					  '<link>http://www.phpgenie.co.uk/</link>' +
+					  '<description>' +
+					  quote.quote +
+					  '</description>' +
+					  '</item>';
+		});
+
+		res.send(output);
+	});
+}
+
 
 var server = restify.createServer();
 server.get('/quotes/:name', getQuotes);
+server.get('/rss', getFeed);
 server.get('/', getQuotes);
 server.get('/random', getRandom);
 
 server.post('/quotes/:name', newQuote);
 
-server.listen(8080, function() {
+server.listen(8081, function() {
 	console.log('%s listening at %s', server.name, server.url);
 })
