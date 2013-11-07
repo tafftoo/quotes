@@ -55,7 +55,7 @@ function getRandom(req, res, next) {
 }
 
 function getFeed(req, res, next) {
-	db.all("SELECT rowid AS id, person, quote FROM quotes", function(err, quotes) {
+	db.all("SELECT rowid AS id, person, quote FROM quotes ORDER BY RANDOM()", function(err, quotes) {
 		var output = '<rss version="2.0">' +
 					 '<channel>' +
 					 '<title>PHPGenie Quotes</title>' +
@@ -86,6 +86,6 @@ server.get('/random', getRandom);
 
 server.post('/quotes/:name', newQuote);
 
-server.listen(8081, function() {
+server.listen(8069, function() {
 	console.log('%s listening at %s', server.name, server.url);
 })
